@@ -5,6 +5,8 @@ const port = process.env.PORT || 8080;
 var cors = require('cors');
 const bodyParser = require('body-parser');
 
+app.use(express.static("public/upload"))
+
 const connectDB = require('./config/connectDB');
 const task = require('./helper/cronjobSendMail');
 const task2 = require('./helper/cronjobVoucher');

@@ -41,10 +41,11 @@ module.exports = {
 
       const img = image.map(ele => {
         let path = ele.path.split('\\');
+        let url = path[2];
         return {
           productId: product.id,
           name,
-          url: path.join('/'),
+          url,
           createdBy: req.user,
           updateBy: req.user
         }
@@ -72,10 +73,13 @@ module.exports = {
         ...search(req.query.search),
         ...filter('categoryId', req.query.category)
       },
-      include: {
-        model: ProductImage,
-        model: Comment
-      },
+      include: [
+        {
+          model: Comment,
+        },
+        {
+          model: ProductImage,
+        }],
       ...getPagination(req.query.page),
       ...getSort(req.query.title, req.query.type)
     }
